@@ -1,6 +1,6 @@
 # ConnectID — GitHub + Render
 
-This is the flat-file version. **No folders are required.**
+This is the flat-file version. **No folders are required.**\n\n**Node.js is pinned to 20.19.0** because the SQLite native dependency needs a compatible Node build.
 
 Files:
 - `index.html` — frontend

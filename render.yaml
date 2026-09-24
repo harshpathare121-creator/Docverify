@@ -7,7 +7,7 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: 20
+        value: "20.19.0"
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
@@ -15,7 +15,7 @@ services:
       - key: EMAIL_MODE
         value: demo
       - key: OTP_TTL_MINUTES
-        value: 10
+        value: "10"
       - key: DATA_DIR
         value: /var/data
     disk:
