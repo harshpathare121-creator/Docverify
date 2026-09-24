@@ -1,16 +1,27 @@
-# ConnectID — GitHub + Render
+# ConnectID Demo — Multi-user + Backend + Admin Portal
 
-This is the flat-file version. **No folders are required.**\n\n**Node.js is pinned to 20.19.0** because the SQLite native dependency needs a compatible Node build.
+Flat-file demo project for GitHub + Render.
 
-Files:
-- `index.html` — frontend
-- `server.js` — backend/API
-- `package.json` — dependencies
-- `render.yaml` — Render deployment
-- `.env.example` — environment template
-- `.gitignore` — ignores secrets/runtime data
-- `API.md` — API reference
-- `README.md` — setup
+## What changed
+
+- Frontend now uses the backend API instead of storing user data in localStorage.
+- Every registered person gets a unique permanent Person ID (`PID-100245`, `PID-100246`, ...).
+- Multiple people can register independently.
+- Documents, access requests, notifications, and audit events are stored in SQLite.
+- New top-right menu contains About, Organization Portal, and Admin Portal.
+- Demo Admin Portal can view all user records, including profile data, document OCR metadata, access requests, notifications, and activity.
+- Demo Organization Portal supports requesting data, OTP authorization, and viewing granted fields.
+- Node is pinned to 20.19.0 for Render compatibility.
+
+## Demo credentials
+
+### Organization
+- Code: `HOSP001`
+- Password: `hospital123`
+
+### Admin
+- Code: `ADMIN001`
+- Password: `admin12345`
 
 ## Run locally
 
@@ -21,39 +32,15 @@ npm start
 
 Open `http://localhost:10000`.
 
-Health check: `http://localhost:10000/api/health`
+## Important
 
-## Demo organization
-
-Code: `HOSP001`
-Password: `hospital123`
-
-`EMAIL_MODE=demo` returns OTPs in API responses for the demo.
-
-## GitHub
-
-Upload all files directly into the root of your GitHub repository.
-
-```bash
-git init
-git add .
-git commit -m "ConnectID backend and frontend"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPO_URL
-git push -u origin main
-```
-
-Never commit `.env`, API keys, database files, or passwords.
+This is a prototype. OCR is simulated. Gmail OTP is in demo mode unless Resend is configured. The Admin Portal intentionally has full access because this is a judge/demo environment.
 
 ## Render
 
-Connect the GitHub repository to Render. `render.yaml` configures the Node service automatically.
+The included `render.yaml` uses a persistent disk at `/var/data` and pins Node 20.19.0.
+If you are using an existing Render Web Service rather than a Blueprint-managed service, manually add:
 
-## Real Gmail OTP
+`NODE_VERSION=20.19.0`
 
-Later set:
-- `EMAIL_MODE=resend`
-- `RESEND_API_KEY`
-- `RESEND_FROM_EMAIL`
-
-The current demo does not require an email provider.
+Then use **Clear build cache & deploy** if the service still shows Node 26.
