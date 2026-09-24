@@ -1,46 +1,21 @@
-# ConnectID Demo — Multi-user + Backend + Admin Portal
+# ConnectID Demo — stable Render build
 
-Flat-file demo project for GitHub + Render.
-
-## What changed
-
-- Frontend now uses the backend API instead of storing user data in localStorage.
-- Every registered person gets a unique permanent Person ID (`PID-100245`, `PID-100246`, ...).
-- Multiple people can register independently.
-- Documents, access requests, notifications, and audit events are stored in SQLite.
-- New top-right menu contains About, Organization Portal, and Admin Portal.
-- Demo Admin Portal can view all user records, including profile data, document OCR metadata, access requests, notifications, and activity.
-- Demo Organization Portal supports requesting data, OTP authorization, and viewing granted fields.
-- Node is pinned to 20.19.0 for Render compatibility.
+This version keeps the same ConnectID demo flow but removes the native SQLite dependency. Data is stored in a JSON file on the Render persistent disk, so the service does not need `better-sqlite3`/node-gyp during deployment.
 
 ## Demo credentials
+- Organization: `HOSP001` / `hospital123`
+- Admin: `ADMIN001` / `admin12345`
+- Registration: Gmail only; demo OTP is shown on screen.
 
-### Organization
-- Code: `HOSP001`
-- Password: `hospital123`
-
-### Admin
-- Code: `ADMIN001`
-- Password: `admin12345`
-
-## Run locally
-
-```bash
-npm install
-npm start
-```
-
-Open `http://localhost:10000`.
-
-## Important
-
-This is a prototype. OCR is simulated. Gmail OTP is in demo mode unless Resend is configured. The Admin Portal intentionally has full access because this is a judge/demo environment.
+## Features
+- Unique permanent Person IDs (`PID-100245`, `PID-100246`, ...)
+- Document upload + simulated OCR metadata
+- Organization access requests
+- Person approve/deny
+- OTP authorization
+- Granted access + revoke
+- Notifications + audit trail
+- Demo Admin Portal with full user records and uploaded files
 
 ## Render
-
-The included `render.yaml` uses a persistent disk at `/var/data` and pins Node 20.19.0.
-If you are using an existing Render Web Service rather than a Blueprint-managed service, manually add:
-
-`NODE_VERSION=20.19.0`
-
-Then use **Clear build cache & deploy** if the service still shows Node 26.
+Deploy the flat project with `npm install` and `npm start`. `NODE_VERSION=20.19.0` is pinned. Persistent data is stored under `/var/data` when the included Blueprint is used.
